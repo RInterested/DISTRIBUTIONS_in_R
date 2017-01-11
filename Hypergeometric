@@ -1,0 +1,26 @@
+# Calculate the probability of drawing AT LEAST one poker card over 10 in a 5-card draw (ace is considered highest):
+
+# There are 52 cards (13 per spade). J, Q, K and A (4 spades) = 16 "successes"
+
+# First calculate the probability of zero successes (x = 0). m = 16 population successes; n = 52 - 16 failures; k = sample size
+
+dhyper(x = 0, m = 16, n = 52 - 16, k = 5)
+[1] 0.1450549
+
+# Therefore:
+
+sum(dhyper(x = 0:5, m = 16, n = 52 - 16, k = 5))
+[1] 1
+
+phyper(q = 0:5, m = 16, n = 52 - 16, k = 5, lower.tail = T)
+[1] 0.1450549 0.5076923 0.8373626 0.9731092 0.9983193 1.0000000
+
+# So solving the actual question of at least one over 10:
+
+sum(dhyper(x = 1:5, m = 16, n = 52 - 16, k = 5))
+[1] 0.8549451
+
+# OR
+
+phyper(q = 0, m = 16, n = 52 - 16, k = 5, lower.tail = F)
+[1] 0.8549451
